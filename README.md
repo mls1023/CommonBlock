@@ -1,5 +1,6 @@
 # CommonBlock
-Common Block website functionality
+Common Block Website Functionality
+
 The Rent Sharing Website is intended to facilitate convenient rent sharing among NYU students. The system will include the following functions:
 A repository of apartments displayed on a map
 A repository of user profiles
