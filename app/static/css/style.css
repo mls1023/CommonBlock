@@ -1,120 +1,123 @@
 /* Set default font styles */
 body {
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #333;
-    background-color: #f5f5f5;
-  }
-  
-  /* Style the header */
-  header {
-    background-color: #673ab7;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  /* Style the navigation menu */
-  nav {
-    background-color: #9575cd;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-  }
-  
-  nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  nav li {
-    display: inline-block;
-    margin-right: 10px;
-  }
-  
-  nav a {
-    color: #fff;
-    text-decoration: none;
-    padding: 5px;
-  }
-  
-  nav a:hover {
-    background-color: #fff;
-    color: #673ab7;
-  }
-  
-  /* Style the main content area */
-  main {
-    padding: 20px;
-  }
-  
-  /* Style the footer */
-  footer {
-    background-color: #673ab7;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  /* Style the login and signup forms */
-  form {
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #ccc;
-    margin-top: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  form label {
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  form input[type="text"],
-  form input[type="email"],
-  form input[type="password"] {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  form input[type="submit"] {
-    background-color: #673ab7;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  form input[type="submit"]:hover {
-    background-color: #9575cd;
-  }
-  
-  /* Style the signup page specifically */
-  #signup-form label[for="password-confirm"],
-  #signup-form input[type="password"] {
-    display: none;
-  }
-  
-  #signup-form label[for="password"],
-  #signup-form input[name="password"] {
-    margin-bottom: 0;
-  }
-  
-  #signup-form input[name="password"] {
-    margin-bottom: 20px;
-  }
-  
-  #signup-form label[for="password"]::after {
-    content: " (must be at least 8 characters)";
-    font-size: 12px;
-    font-style: italic;
-    color: #999;
-  }
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  background-color: #f5f5f5;
+}
+
+/* Style the header */
+header {
+  background-color: #673ab7;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Style the navigation menu */
+nav {
+  background-color: #9575cd;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 5px;
+  transition: all 0.3s ease;
+}
+
+nav a:hover {
+  background-color: #fff;
+  color: #673ab7;
+}
+
+/* Style the main content area */
+main {
+  padding: 20px;
+}
+
+/* Style the footer */
+footer {
+  background-color: #673ab7;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Style the login and signup forms */
+form {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+form input[type="submit"] {
+  background-color: #673ab7;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+form input[type="submit"]:hover {
+  background-color: #9575cd;
+}
+
+/* Style the signup page specifically */
+#signup-form label[for="password-confirm"],
+#signup-form input[type="password"] {
+  display: none;
+}
+
+#signup-form label[for="password"],
+#signup-form input[name="password"] {
+  margin-bottom: 0;
+}
+
+#signup-form input[name="password"] {
+  margin-bottom: 20px;
+}
+
+#signup-form label[for="password"]::after {
+  content: " (must be at least 8 characters)";
+  font-size: 12px;
+  font-style: italic;
+  color: #999;
+}
+
   
