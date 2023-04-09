@@ -1,13 +1,28 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block title %}About{% endblock %}
+{% block title %}About - Rent Sharing Website{% endblock %}
 
 {% block content %}
-  <h1>About Our Site</h1>
-  <p>The Rent Sharing Website is intended to facilitate convenient rent sharing among NYU students. The system will include the following functions:
-    A repository of apartments displayed on a map
-    A repository of user profiles
-    The ability to create groups of interest between students and for certain apartments. 
-    The ability to create groups dedicated to the buying/selling of second-hand furniture. 
-    A review system for both students and apartments. </p>
+  <div class="about-section">
+    <h2>About the Rent Sharing Website</h2>
+    <p>The Rent Sharing Website is intended to facilitate convenient rent sharing among NYU students.</p>
+    <p>The system includes the following functions:</p>
+    <ul>
+      <li>A repository of apartments displayed on a map</li>
+      <li>A repository of user profiles</li>
+      <li>The ability to create groups of interest between students and for certain apartments</li>
+      <li>The ability to create groups dedicated to the buying/selling of second-hand furniture</li>
+      <li>A review system for both students and apartments</li>
+    </ul>
+  </div>
+  
+  <div class="developers-section">
+    <h2>Developers</h2>
+    <ul>
+      <li>Kelly Dong</li>
+      <li>Yilin Zhao</li>
+      <li>Moses Stewart</li>
+    </ul>
+  </div>
 {% endblock %}
+
