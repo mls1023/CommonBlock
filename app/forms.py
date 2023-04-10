@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, IntegerField, SelectField, SubmitField
-from wtforms.validators import DataRequired, Email, Length
+from wtforms import StringField, PasswordField, IntegerField, SelectField, SubmitField, TextAreaField
+from wtforms.validators import DataRequired, Email, Length, Optional,InputRequired, NumberRange
 
 class SearchForm(FlaskForm):
     min_rent = IntegerField('Minimum Rent', validators=[DataRequired()])
@@ -20,9 +20,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Log In')
 
 class ReviewForm(FlaskForm):
-    review_type = SelectField('Type of Review', validators=[DataRequired()], choices=[('user', 'User'), ('apartment', 'Apartment')])
-    rating = IntegerField('Rating (1-5)', validators=[DataRequired()])
-    comment = StringField('Comment', validators=[DataRequired()])
-    username = StringField('Username', validators=[DataRequired()])
-    address = StringField('Address', validators=[DataRequired()])
-    submit = SubmitField('Submit Review')
+    review_type = SelectField('Review Type', choices=[('user', 'User'), ('apartment', 'Apartment')], validators=[InputRequired()])
+    name_or_address = TextAreaField('Name or Address', validators=[InputRequired()])
+    rating = IntegerField('Rating', validators=[InputRequired(), NumberRange(min=1, max=5)])
+    comment = TextAreaField('Comment')

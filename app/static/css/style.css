@@ -3,8 +3,8 @@ body {
   font-family: Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  color: #333;
-  background-color: #f5f5f5;
+  color: #eee; /* Change text color to light gray */
+  background-color: #1a1a1a; /* Change background color to dark gray */
 }
 
 /* Style the header */
@@ -53,7 +53,7 @@ main {
 
 /* Style the footer */
 footer {
-  background-color: #673ab7;
+  background-color: #1a1a1a;
   color: #fff;
   padding: 20px;
   text-align: center;
@@ -61,7 +61,7 @@ footer {
 
 /* Style the login and signup forms */
 form {
-  background-color: #fff;
+  background-color: rgb(103,58,183);
   padding: 20px;
   border: 1px solid #ccc;
   margin-top: 20px;
