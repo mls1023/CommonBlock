@@ -16,8 +16,8 @@ CREATE TABLE apartments (
     num_bedrooms INT NOT NULL
 );
 
-INSERT INTO users (username, email, password)
-VALUES (admin, "admin@gmail.com", "password1");
+INSERT INTO users (username, email, password_hash)
+VALUES ('admin', 'admin@gmail.com', 'password1');
 
 INSERT INTO apartments(address, rent, num_bedrooms)
 VALUES
