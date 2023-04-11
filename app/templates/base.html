@@ -5,6 +5,11 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    {% block leaflet %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+    crossorigin=""/>
+    {% endblock %}
   </head>
   <body>
     <header>
@@ -41,5 +46,10 @@
     <footer>
       <p>&copy; 2023 Common Block</p>
     </footer>
+    {% block leaflet_js %}
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+    integrity="sha256-J6f4U6giDy5pAZi6frBw5xSx5e5Z9XWYjDk/yHcF7h0="
+    crossorigin=""></script>
+    {% endblock %}
   </body>
 </html>

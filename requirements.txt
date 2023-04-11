@@ -3,3 +3,5 @@ MySQL
 email_validator
 Flask-Migrate 
 Flask-Script
+leaflet
+geopy
