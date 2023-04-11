@@ -2,6 +2,10 @@ from app import db, login_manager
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+from geopy.geocoders import Nominatim
+import time
+
+geolocator = Nominatim(user_agent="Common-Block")
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -37,9 +41,12 @@ class Apartment(db.Model):
     address = db.Column(db.String(120), nullable=False)
     rent = db.Column(db.Integer, nullable=False)
     num_bedrooms = db.Column(db.Integer, nullable=False)
+    lat = db.Column(db.DECIMAL(7, 4), nullable=False)
+    lng = db.Column(db.DECIMAL(7, 4), nullable=False)
 
     def __repr__(self):
         return '<Apartment Listing {}>'.format(self.address)
+
 
 class Review(db.Model):
     __tablename__ = 'reviews'

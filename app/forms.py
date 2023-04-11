@@ -1,11 +1,13 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, IntegerField, SelectField, SubmitField, TextAreaField
-from wtforms.validators import DataRequired, Email, Length, Optional,InputRequired, NumberRange
+from wtforms import StringField, PasswordField, IntegerField, SelectField, SubmitField, TextAreaField, HiddenField
+from wtforms.validators import DataRequired, Email, Length, InputRequired, NumberRange
 
 class SearchForm(FlaskForm):
     min_rent = IntegerField('Minimum Rent', validators=[DataRequired()])
     max_rent = IntegerField('Maximum Rent', validators=[DataRequired()])
     num_bedrooms = IntegerField('Number of Bedrooms', validators=[DataRequired()])
+    lat = HiddenField(validators=[DataRequired()])
+    lng = HiddenField(validators=[DataRequired()])
     submit = SubmitField('Search')
 
 class SignupForm(FlaskForm):

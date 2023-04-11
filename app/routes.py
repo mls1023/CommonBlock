@@ -4,6 +4,7 @@ from sqlalchemy import func
 from app import app, db
 from app.forms import ReviewForm, LoginForm, SignupForm, SearchForm
 from app.models import User, Apartment, Review
+from geopy.distance import geodesic
 
 @app.route('/')
 def index():
@@ -56,13 +57,15 @@ def search():
         min_rent = form.min_rent.data
         max_rent = form.max_rent.data
         num_bedrooms = form.num_bedrooms.data
-        listings = Apartment.query.filter(
-            Apartment.rent >= min_rent, Apartment.rent <= max_rent,
-            Apartment.num_bedrooms == num_bedrooms).all()
-        return redirect(url_for('search_results', apartment_listings=listings))
-    return render_template('search.html', form=form)
+        lat = form.lat.data
+        lng = form.lng.data
 
-from sqlalchemy import func
+        print(type(lat))
+        print(type(lng))
+        print('hi')
+
+        return redirect(url_for('search_results', min_rent=min_rent, max_rent=max_rent, num_bedrooms=num_bedrooms, lat=lat, lng=lng))
+    return render_template('search.html', form=form)
 
 @app.route('/search_results')
 @login_required
@@ -70,18 +73,23 @@ def search_results():
     min_rent = request.args.get('min_rent', type=int)
     max_rent = request.args.get('max_rent', type=int)
     num_bedrooms = request.args.get('num_bedrooms', type=int)
+    lat = request.args.get('lat', type=float)
+    lng = request.args.get('lng', type=float)
 
-    apartment_listings = Apartment.query.filter(
-        Apartment.rent >= min_rent,
-        Apartment.rent <= max_rent,
-        Apartment.num_bedrooms == num_bedrooms).all()
+    listings = Apartment.query.filter(
+    Apartment.rent >= min_rent,
+    Apartment.rent <= max_rent,
+    Apartment.num_bedrooms == num_bedrooms
+    ).all()
+
+    filtered_listings = [listing for listing in listings if
+        geodesic((lat,lng), (listing.lat, listing.lng)).miles <= 1]
 
     reviews = []
-    for listing in apartment_listings:
+    for listing in filtered_listings:
         avg_rating = db.session.query(func.avg(Review.rating)).filter_by(apartment_id=listing.id).scalar()
         rand_reviews = Review.query.filter_by(apartment_id=listing.id).order_by(func.random()).limit(5).all()
         reviews.append({'listing': listing, 'avg_rating': avg_rating, 'rand_reviews': rand_reviews})
-
     return render_template('search_results.html', reviews=reviews)
 
 @app.route('/edit-account')

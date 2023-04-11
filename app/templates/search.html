@@ -3,24 +3,50 @@
 {% block title %}Search{% endblock %}
 
 {% block content %}
-  <h2>Search for Apartment Listings</h2>
-  <form action="{{ url_for('search_results') }}" method="get">
-    <label for="min_rent">Minimum Rent:</label>
-    <input type="number" id="min_rent" name="min_rent" required>
-    <br>
-    <label for="max_rent">Maximum Rent:</label>
-    <input type="number" id="max_rent" name="max_rent" required>
-    <br>
-    <label for="num_bedrooms">Number of Bedrooms:</label>
-    <select id="num_bedrooms" name="num_bedrooms" required>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5+</option>
-    </select>
-    <br>
-    <button type="submit">Search</button>
-  </form>
-{% endblock %}
+<h2>Search for Apartment </h2>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <form action="{{ url_for('search_results') }}" method="get">
+          {{ form.hidden_tag() }}
+          <label for="min_rent">Minimum Rent:</label>
+          {{ form.min_rent(class="form-control", id="min_rent", required="required") }}
+          <br>
+          <label for="max_rent">Maximum Rent:</label>
+          {{ form.max_rent(class="form-control", id="max_rent", required="required") }}
+          <br>
+          <label for="num_bedrooms">Number of Bedrooms:</label>
+          {{ form.num_bedrooms(class="form-control", id="num_bedrooms", required="required") }}
+          <br>
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+      </div>
+      <div class="col-md-6">
+        <div id="mapid" style="height: 360px;"></div>
+      </div>
+    </div>
+  </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script>
+    var mymap = L.map('mapid').setView([40.7295, -73.9965], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+      maxZoom: 18
+    }).addTo(mymap);
+
+    var marker;
+
+    function onMapClick(e) {
+      if (marker) {
+        mymap.removeLayer(marker);
+      }
+      marker = L.marker(e.latlng).addTo(mymap);
+      document.getElementById("lat").value = e.latlng.lat.toFixed(6);
+      document.getElementById("lng").value = e.latlng.lng.toFixed(6);
+    }
+
+    mymap.on('click', onMapClick);
+  </script>
+{% endblock %}

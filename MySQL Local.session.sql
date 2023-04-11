@@ -9,57 +9,45 @@ CREATE TABLE users (
     password_hash VARCHAR(128) NOT NULL
 );
 
+
 CREATE TABLE apartments (
     id INT PRIMARY KEY AUTO_INCREMENT,
     address VARCHAR(120) NOT NULL,
     rent INT NOT NULL,
-    num_bedrooms INT NOT NULL
-);
+    num_bedrooms INT NOT NULL,
+    lat DECIMAL(7, 4),
+    lng DECIMAL(7, 4));
+
 
 INSERT INTO users (username, email, password)
 VALUES (admin, "admin@gmail.com", "password1");
 
-INSERT INTO apartments(address, rent, num_bedrooms)
+INSERT INTO apartments(address, rent, num_bedrooms, lat, lng)
 VALUES
-('123 Broadway', 2200, 1),
-('456 Main St', 1800, 2),
-('789 Park Ave', 2800, 3),
-('234 Madison Ave', 3100, 1),
-('567 Lexington Ave', 2500, 2),
-('890 5th Ave', 3500, 3),
-('111 Wall St', 2400, 1),
-('222 William St', 1800, 2),
-('333 Pearl St', 2800, 3),
-('444 Water St', 3100, 1),
-('555 Front St', 2500, 2),
-('666 South St', 3500, 3),
-('777 East Broadway', 2200, 1),
-('888 West Broadway', 1800, 2),
-('999 Hudson St', 2800, 3),
-('100 1st Ave', 3100, 1),
-('200 2nd Ave', 2500, 2),
-('300 3rd Ave', 3500, 3),
-('400 4th Ave', 2400, 1),
-('500 5th Ave', 1800, 2),
-('600 6th Ave', 2800, 3),
-('700 7th Ave', 3100, 1),
-('800 8th Ave', 2500, 2),
-('900 9th Ave', 3500, 3),
-('101 10th St', 2200, 1),
-('202 11th St', 1800, 2),
-('303 12th St', 2800, 3),
-('404 13th St', 3100, 1),
-('505 14th St', 2500, 2),
-('606 15th St', 3500, 3),
-('707 16th St', 2400, 1),
-('808 17th St', 1800, 2),
-('909 18th St', 2800, 3),
-('111 19th St', 3100, 1),
-('222 20th St', 2500, 2),
-('333 21st St', 3500, 3),
-('444 22nd St', 2200, 1),
-('555 23rd St', 1800, 2),
-('666 24th St', 2800, 3);
+('45 Wall St New York NY 10005', 2200, 1, 40.7062, -74.0100),
+('15 Cliff St New York NY 10038', 1800, 2, 40.7083, -74.0057),
+('8 Spruce St New York NY 10038', 2800, 3, 40.7101, -74.0052),
+('100 John St New York NY 10038', 3100, 1, 40.7081, -74.0053),
+('189 Bridge St Brooklyn NY 11201', 2500, 2, 40.7022, -73.9852),
+('1 John St Brooklyn NY 11201', 3500, 3, 40.7041, -73.9817),
+('25 Broad St New York NY 10004', 2400, 1, 40.7061, -74.0110),
+('111 Fulton St New York NY 10038', 1800, 2, 40.7102, -74.0072),
+('20 Exchange Pl New York NY 10005', 2800, 3, 40.7070, -74.0103),
+('80 John St New York NY 10038', 3100, 1, 40.7084, -74.0064),
+('37 Wall St New York NY 10005', 2500, 2, 40.7067, -74.0092),
+('45 John St New York NY 10038', 3500, 3, 40.7090, -74.0083),
+('200 Water St New York NY 10038', 2200, 1, 40.7062, -74.0033),
+('81 Washington St Brooklyn NY 11201', 1800, 2, 40.7022, -73.9893),
+('15 William St New York NY 10005', 2800, 3, 40.7069, -74.0082),
+('33 Gold St New York NY 10038', 3100, 1, 40.7079, -74.0036),
+('25 Hanover St New York NY 10005', 2500, 2, 40.7054, -74.0096),
+('63 Wall St New York NY 10005', 3500, 3, 40.7067, -74.0091),
+('88 Greenwich St New York NY 10006', 2400, 1, 40.7097, -74.0140),
+('15 Park Row New York NY 10038', 1800, 2, 40.7112, -74.0073),
+('70 Pine St New York NY 10270', 2800, 3, 40.7067, -74.0072),
+('100 Maiden Ln New York NY 10038', 3100, 1, 40.7067, -74.0052),
+('95 Wall St New York NY 10005', 2500, 2, 40.7052, -74.0083),
+('123 Washington St New York NY 10006', 3500, 3, 40.7094, -74.0132);
 
 CREATE TABLE Reviews (
     id INT NOT NULL AUTO_INCREMENT,
