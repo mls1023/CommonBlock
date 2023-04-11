@@ -59,11 +59,6 @@ def search():
         num_bedrooms = form.num_bedrooms.data
         lat = form.lat.data
         lng = form.lng.data
-
-        print(type(lat))
-        print(type(lng))
-        print('hi')
-
         return redirect(url_for('search_results', min_rent=min_rent, max_rent=max_rent, num_bedrooms=num_bedrooms, lat=lat, lng=lng))
     return render_template('search.html', form=form)
 
