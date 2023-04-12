@@ -10,6 +10,12 @@
     {{ form.first_name }}
     <label for="{{form.last_name.id}}"> {{form.last_name.label.text }}</label>
     {{ form.last_name }}
+    <label for="{{form.gender.id}}"> {{form.gender.label.text }}</label>
+    {{ form.gender }}
+    <label for="{{form.wake_up.id}}"> {{form.wake_up.label.text }}</label>
+    {{ form.wake_up }}
+    <label for="{{form.bedtime.id}}"> {{form.bedtime.label.text }}</label>
+    {{ form.bedtime }}
     {{ <form action="" class="edit_account"></form> }}
   </form>
 {% endblock %}
