@@ -4,7 +4,12 @@
 
 {% block content %}
   <h2>Edit Account</h2>
-  <form>
+  <form method="post">
     <!-- Form fields for editing account information -->
+    <label for="{{form.first_name.id}}"> {{form.first_name.label.text }}</label>
+    {{ form.first_name }}
+    <label for="{{form.last_name.id}}"> {{form.last_name.label.text }}</label>
+    {{ form.last_name }}
+    {{ <form action="" class="edit_account"></form> }}
   </form>
 {% endblock %}
