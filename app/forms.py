@@ -24,6 +24,7 @@ class LoginForm(FlaskForm):
 class AccountInfoForm(FlaskForm):
     first_name = StringField('First Name', valaidators=[Length(max=20)])
     last_name = StringField('Last Name', valaidators=[Length(max=20)])
+    gender = SelectField('Gender',validate_choice=)
     edit_account = SubmitField('Edit Account')
 
 class ReviewForm(FlaskForm):
