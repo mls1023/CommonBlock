@@ -21,6 +21,11 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Log In')
 
+class AccountInfoForm(FlaskForm):
+    first_name = StringField('First Name', valaidators=[Length(max=20)])
+    last_name = StringField('Last Name', valaidators=[Length(max=20)])
+    edit_account = SubmitField('Edit Account')
+
 class ReviewForm(FlaskForm):
     review_type = SelectField('Review Type', choices=[('user', 'User'), ('apartment', 'Apartment')], validators=[InputRequired()])
     name_or_address = TextAreaField('Name or Address', validators=[InputRequired()])
