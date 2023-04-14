@@ -6,7 +6,8 @@ CREATE TABLE users (
     id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(64) NOT NULL,
     email VARCHAR(120) NOT NULL,
-    password_hash VARCHAR(128) NOT NULL
+    password_hash VARCHAR(128) NOT NULL,
+    group_id INT(11)
 );
 
 
