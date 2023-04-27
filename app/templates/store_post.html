@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Store{% endblock %}
+
+{% block content %}
+  <h2>Post an item for sale</h2>
+  <form action="{{ url_for('post_item') }}" method="POST" enctype="multipart/form-data">
+    <label for="picture">Picture:</label>
+    <input type="file" name="picture" id="picture"><br><br>
+    <label for="condition">Condition:</label>
+    <select name="condition" id="condition">
+      <option value="new">New</option>
+      <option value="like new">Like new</option>
+      <option value="good">Good</option>
+      <option value="fair">Fair</option>
+      <option value="poor">Poor</option>
+    </select><br><br>
+    <label for="description">Description:</label><br>
+    <textarea name="description" id="description" rows="4" cols="50"></textarea><br><br>
+    <label for="price">Price:</label>
+    <input type="number" name="price" id="price" step="1.00" min="0"><br><br>
+    <input type="submit" value="Post item">
+  </form>
+{% endblock %}
