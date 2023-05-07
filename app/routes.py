@@ -6,6 +6,15 @@ from app.forms import ApartmentReviewForm, UserReviewForm, LoginForm, SignupForm
 from app.models import Furniture, User, Apartment, Review
 from geopy.distance import geodesic
 
+import pymysql.cursors
+conn = pymysql.connect(host='127.0.0.1',
+                       port=8889,
+                       user='root',
+                       password='root',
+                       db='CommonBlock',
+                       charset='utf8mb4',
+                       cursorclass=pymysql.cursors.DictCursor)
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -129,8 +138,12 @@ def join_group():
 @app.route('/store', methods=['GET'])
 def store():
     # Handle GET request to display items and search form
-    
-    return render_template('store.html')
+    cursor = conn.cursor()
+    getall = 'SELECT * FROM furnitures'
+    cursor.execute(getall)
+    data = cursor.fetchall()
+    cursor.close()
+    return render_template('store.html', result = data)
 
 @app.route('/store/post', methods=['GET', 'POST'])
 @login_required

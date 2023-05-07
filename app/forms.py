@@ -40,9 +40,9 @@ class UserReviewForm(FlaskForm):
     comment = TextAreaField('Comment')
 
 class StoreForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired(), Length(min=2, max=100)])
+    #name = StringField('Name', validators=[DataRequired(), Length(min=2, max=100)])
     description = TextAreaField('Description', validators=[DataRequired()])
     condition = SelectField('Condition', choices=[('new', 'New'), ('used', 'Used')], validators=[DataRequired()])
     price = FloatField('Price', validators=[DataRequired()])
-    image = FileField('Image', validators=[DataRequired()])
+    #image = FileField('Image', validators=[DataRequired()])
     submit = SubmitField('Post')    

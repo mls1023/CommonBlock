@@ -3,8 +3,15 @@
 {% block title %}Store{% endblock %}
 
 {% block content %}
+  <head>
+  <style>
+  table, th, td {
+    border: 1px solid rgb(255, 255, 255);
+  }
+  </style>
+  </head>
   <h2>Second Hand Furniture Store</h2>
-  <table>
+  <table style="width:100%">
     <tr>
       <th>ItemID</th>
       <th>Username</th>
@@ -13,7 +20,16 @@
       <th>Description</th>
       <th>Price</th>
     </tr>
-    
+    {% for line in result %}
+            <tr>
+                <td>{{line['item_id']}}</td>
+                <td>{{line['username']}}</td>
+                <td>{{line['email']}}</td>
+                <td>{{line['item_condition']}}</td>
+                <td>{{line['description']}}</td>
+                <td>{{line['price']}}</td>
+            </tr>
+    {% endfor %}
   </table>
   
 {% endblock %}
