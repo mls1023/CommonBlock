@@ -39,6 +39,7 @@ class UserReviewForm(FlaskForm):
     rating = IntegerField('Rating', validators=[InputRequired(), NumberRange(min=1, max=5)])
     comment = TextAreaField('Comment')
 
+#Not using this
 class StoreForm(FlaskForm):
     #name = StringField('Name', validators=[DataRequired(), Length(min=2, max=100)])
     description = TextAreaField('Description', validators=[DataRequired()])

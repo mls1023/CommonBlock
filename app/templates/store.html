@@ -17,8 +17,9 @@
       <th>Username</th>
       <th>Email</th>
       <th>Condition</th>
+      <th>Price ($)</th>
+      <th>Furniture</th>
       <th>Description</th>
-      <th>Price</th>
     </tr>
     {% for line in result %}
             <tr>
@@ -26,8 +27,9 @@
                 <td>{{line['username']}}</td>
                 <td>{{line['email']}}</td>
                 <td>{{line['item_condition']}}</td>
-                <td>{{line['description']}}</td>
                 <td>{{line['price']}}</td>
+                <td>{{line['furniture_name']}}</td>
+                <td>{{line['description']}}</td>
             </tr>
     {% endfor %}
   </table>
