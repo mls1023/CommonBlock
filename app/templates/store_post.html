@@ -5,8 +5,11 @@
 {% block content %}
   <h2>Post an item for sale</h2>
   <form action="{{ url_for('post_item') }}" method="POST" enctype="multipart/form-data">
-    <label for="picture">Picture:</label>
-    <input type="file" name="picture" id="picture"><br><br>
+    <!-- <label for="picture">Picture:</label> -->
+    <!-- <input type="file" name="picture" id="picture"><br><br> -->
+    <lable for="furniture_name">Furniture Name:</label><br>
+    <textarea name="furniture_name" id="furniture_name" rows="1" cols="20"></textarea><br><br>
+  
     <label for="condition">Condition:</label>
     <select name="condition" id="condition">
       <option value="new">New</option>
@@ -15,14 +18,19 @@
       <option value="fair">Fair</option>
       <option value="poor">Poor</option>
     </select><br><br>
+
     <label for="description">Description:</label><br>
     <textarea name="description" id="description" rows="4" cols="50"></textarea><br><br>
+
     <label for="price">Price:</label>
     <input type="number" name="price" id="price" step="1.00" min="0"><br><br>
+
     <lable for="username">Username:</label><br>
-    <textarea name="description" id="description" rows="1" cols="20"></textarea><br><br>
+    <textarea name="username" id="username" rows="1" cols="20"></textarea><br><br>
+
     <lable for="email">Email:</label><br>
-    <textarea name="description" id="description" rows="1" cols="20"></textarea><br><br>
+    <textarea name="email" id="email" rows="1" cols="20"></textarea><br><br>
+
     <input type="submit" value="Post item">
   </form>
 {% endblock %}

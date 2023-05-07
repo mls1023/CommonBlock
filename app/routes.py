@@ -151,8 +151,11 @@ def post_item():
     # Handle GET and POST request to post a new item
     form = StoreForm()
     if form.validate_on_submit():
-        picture_file = 0 #edit
-        new_item = Furniture(picture=picture_file, condition=form.condition.data, description=form.description.data, price=form.price.data, seller=current_user)
+        # picture_file = 0 #edit
+        # new_item = Furniture(picture=picture_file, condition=form.condition.data, description=form.description.data, price=form.price.data, seller=current_user)
+        
+        new_item = Furniture(username=form.username.data, email=form.email.data, item_condition=form.condition.data, price=form.price.data, furniture_name=form.furniture_name.data, description=form.description.data)
+        
         db.session.add(new_item)
         db.session.commit()
         flash('Your item has been posted!', 'success')
