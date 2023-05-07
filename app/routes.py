@@ -129,6 +129,7 @@ def join_group():
 @app.route('/store', methods=['GET'])
 def store():
     # Handle GET request to display items and search form
+    
     return render_template('store.html')
 
 @app.route('/store/post', methods=['GET', 'POST'])
