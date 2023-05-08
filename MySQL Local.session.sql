@@ -6,7 +6,30 @@ CREATE TABLE users (
     id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(64) NOT NULL,
     email VARCHAR(120) NOT NULL,
-    password_hash VARCHAR(128) NOT NULL
+    password_hash VARCHAR(128) NOT NULL,
+    group_id INT(11)
+);
+
+CREATE TABLE account (
+    id INT,
+    user_id INT,
+    first_name VARCHAR(20),
+    last_name VARCHAR(20),
+    age INT(2),
+    PRIMARY KEY(id),
+    FOREIGN KEY(user_id) REFERENCES users(id)
+);
+
+CREATE TABLE chatrooms(
+    chatroom_id INT PRIMARY KEY AUTO_INCREMENT,
+    user1 VARCHAR(64) NOT NULL, 
+    user2 VARCHAR(64) NOT NULL,
+);
+CREATE TABLE messages(
+    num INT PRIMARY KEY AUTO_INCREMENT,
+    chatroom_id INT,
+    user VARCHAR(64),
+    text_message VARCHAR(150)
 );
 
 
@@ -22,8 +45,21 @@ CREATE TABLE apartments (
 INSERT INTO users (username, email, password_hash)
 VALUES ('admin', 'admin@gmail.com', 'password1');
 
+
 INSERT INTO apartments(address, rent, num_bedrooms, lat, lng)
-VALUES
+VALUES('81 Olive St Brooklyn NY 11211', 2200, 4 bd, 40.71519, -73.93866),
+('15 W 107th St New York NY 10025', 1725, 4 bd, 40.79929, -73.9603),
+('285 St Nicholas Ave New York NY 10027', 1775, 4 bd, 40.81047, -73.95288),
+('400 W 20th St New York NY 10011', 2250, 4 bd, 40.74465, -74.00301),
+('644 Park Pl Brooklyn NY 11216', 1575, 3 bd, 40.67396, -73.95652),
+('20 Clendenny Ave Jersey City NJ 07304', 1075, 3 bd, 40.71715, -74.07875),
+('310 Tompkins Ave Brooklyn NY 11216', 1200, 4 bd, 40.68724, -73.94464),
+('285 St Nicholas Ave New York NY 10027', 1400, 4 bd, 40.81047, -73.95288),
+('396 Lefferts Ave Brooklyn NY 11225', 1675, 5 bd, 40.66223, -73.94831),
+('636 Knickerbocker Ave Brooklyn NY 11221', 1550, 5 bd, 40.69517, -73.91207),
+('636 Knickerbocker Ave Brooklyn NY 11221', 1350, 6 bd, 40.69517, -73.91207),
+('636 Knickerbocker Ave Brooklyn NY 11221', 1625, 6 bd, 40.69517, -73.91207),
+('151 Tompkins Ave Brooklyn NY 11206', 1475, 6 bd, 40.69414, -73.94581),
 ('151 Tompkins Ave Brooklyn NY 11206', 1400, 6 bd, 40.69414, -73.94581),
 ('151 Tompkins Ave Brooklyn NY 11206', 1425, 6 bd, 40.69414, -73.94581),
 ('151 Tompkins Ave Brooklyn NY 11206', 1675, 6 bd, 40.69414, -73.94581),
@@ -433,20 +469,6 @@ VALUES
 ('Jersey City NJ 07305', 3200, 2 bd, 40.68637, -74.07192),
 ('Brooklyn NY 11201', 16500, 3 bd, 40.70219, -73.98962),
 ('New York NY 10013', 21500, 3 bd, 40.72519, -74.00888),
-('Jersey City NJ 07306', 3500, 3 bd, 40.73501, -74.07593),
-('New York NY 10031', 4920, 3 bd, 40.82869, -73.95036),
-('New York NY 10012', 8500, 2 bd, 40.72831, -73.99493),
-('Edgewater NJ 07020', 4450, 4 bd, 40.82699, -73.97523),
-('Fort Lee NJ 07024', 7500, 4 bd, 40.84993, -73.9664),
-('Brooklyn NY 11201', 7000, 2 bd, 40.68979, -73.98496),
-('New York NY 10011', 3100, Studio bd, 40.74795, -74.00284),
-('New York NY 10022', 12000, 3 bd, 40.75417, -73.96559),
-('New York NY 10030', 3400, 2 bd, 40.81634, -73.93967),
-('New York NY 10023', 12500, 2 bd, 40.77448, -73.98161),
-('Queens NY 11101', 3700, 1 bd, 40.75346, -73.92952),
-('New York NY 10028', 19950, 4 bd, 40.77836, -73.95379),
-('New York NY 10001', 3800, 1 bd, 40.75431, -73.99792),
-(base) NYUTandon@Mosess-MacBook-Pro py_script % /usr/local/bin/python3 /Users/NYUTandon/Desktop/py_script/script.py
 ('340 Old River Rd Edgewater NJ 07020', 3575, 2 bd, 40.81098, -73.98927),
 ('302 Constitution Ave Bayonne NJ 07002', 2120, Studio - 3 bd, 40.67156, -74.09802),
 ('400 W 42nd St New York NY 10036', 4500, 1 - 2 bd, 40.7583, -73.99321),

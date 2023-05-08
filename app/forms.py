@@ -21,13 +21,16 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Log In')
 
-class AccountInfoForm(FlaskForm):
-    first_name = StringField('First Name', valaidators=[Length(max=20)])
-    last_name = StringField('Last Name', valaidators=[Length(max=20)])
-    gender = SelectField('Gender', choices=[('Male'),('Female'),('Other')])
-    wake_up = SelectField('Wake Up Time', choices=[('6am'),('7am'),('8am'),('9am'),('10am'),('11am')])
-    bedtime = SelectField('Bed Time', choice=[('9pm'),('10pm'),('11pm'),('12am'),('1am'),('2am')])
-    edit_account = SubmitField('Edit Account')
+class EditAccount(FlaskForm):
+    first_name = StringField('First Name', validators=[Length(max=20)])
+    last_name = StringField('Last Name',validators=[Length(max=20)])
+    age = IntegerField("Age",validators=[InputRequired()])
+    submit = SubmitField('Edit Account')
+
+class ChatForm1(FlaskForm):
+    chatuser = SelectField('Users', choices=[], validators=[DataRequired()])
+class ChatForm2(FlaskForm):
+    chatext = TextAreaField("Text",validators=[InputRequired()])
 
 class ApartmentReviewForm(FlaskForm):
     rating = IntegerField('Rating', validators=[InputRequired(), NumberRange(min=1, max=5)])
@@ -43,5 +46,3 @@ class StoreForm(FlaskForm):
     description = TextAreaField('Description', validators=[DataRequired(), Length(min=2, max=100)])
     condition = SelectField('Condition', choices=[('new', 'New'), ('like new', 'Like new'), ('good', 'Good'), ('fair', 'Fair'), ('poor', 'Poor')], validators=[DataRequired()])
     price = FloatField('Price', validators=[DataRequired()])
-
-    

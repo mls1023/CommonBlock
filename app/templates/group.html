@@ -3,16 +3,7 @@
 {% block title %}Join Group{% endblock %}
 
 {% block content %}
-    <h2> JOIN GROUP </h2>
-    <form method="POST">
-      {{ form.hidden_tag() }}
-      <div class="form-group">
-        {{ form.chatuser.label }}
-        {{ form.chatuser(class="form-control") }}
-      </div>
-      <br><br>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    <h2> CHATROOM </h2>
     <br>
     {% for line in messages %}
       <p color="white"> {{line.user}}: {{line.text_message}} </p>
