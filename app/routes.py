@@ -1,9 +1,10 @@
 from flask import render_template, flash, redirect, url_for, request
-from flask_login import login_required, login_user, logout_user, current_user   
+from flask_login import login_required, login_user, logout_user, current_user
+from pymysql import NULL   
 from sqlalchemy import func
 from app import app, db
-from app.forms import LoginForm, SignupForm, SearchForm, EditAccount, StoreForm
-from app.models import User, Apartment, Review, Account, Furniture
+from app.forms import LoginForm, SignupForm, SearchForm, EditAccount, StoreForm, UserReviewForm, ApartmentReviewForm, ChatForm1, ChatForm2
+from app.models import User, Apartment, Review, Account, Furniture, Chatrooms, Messages
 from geopy.distance import geodesic
 
 import pymysql.cursors
@@ -145,7 +146,59 @@ def apartment_review():
 @app.route('/join_group', methods=['GET', 'POST'])
 @login_required
 def join_group():
-    return render_template('join_group.html')
+    form = ChatForm1()
+    form.chatuser.choices = [(a.username) for a in User.query.all()]
+    user = User.query.get(current_user.id)
+    if form.validate_on_submit():
+        chatuser = form.chatuser.data
+        num1 = Chatrooms.query.filter_by(user1=chatuser,user2=user.username).count()
+        num2 = Chatrooms.query.filter_by(user2=chatuser,user1=user.username).count()
+        if num1==0 and num2==0:
+            new_room = Chatrooms(user1=chatuser,user2=user.username)
+            chatroom_id=new_room.chatroom_id
+            db.session.add(new_room)
+            db.session.commit()
+        else:
+            if num1 > 0:
+                chatroom = Chatrooms.query.filter_by(user1=chatuser,user2=user.username).first()
+                chatroom_id = chatroom.chatroom_id
+            if num2 > 0:
+                chatroom = Chatrooms.query.filter_by(user2=chatuser,user1=user.username).first()
+                chatroom_id = chatroom.chatroom_id
+        # cursor = conn.cursor()
+        # query = "SELECT chatroom_id FROM chatrooms WHERE (user1=%s AND user2=%s) OR (user1=%s AND user2=%s);"
+        # cursor.execute(query,(chatuser,user.username,user.username,chatuser))
+        # chatroom = cursor.fetchone()
+        # cursor.close()
+        #cursor = conn.cursor()
+        #query = "SELECT * FROM messages WHERE (chatroom_id=%s);"
+        #cursor.execute(query, chatroom_id)
+        #data = cursor.fetchall()
+        #cursor.close()
+        return redirect(url_for('group', chatroom_id=chatroom_id))
+    return render_template('join_group.html', form=form)
+
+@app.route('/join_group/group')
+@login_required
+def group():
+    form = ChatForm2()
+    chatroom_id = request.args.get('chatroom_id', type=int)
+    cursor = conn.cursor()
+    query = "SELECT * FROM messages WHERE (chatroom_id=%s);"
+    cursor.execute(query, chatroom_id)
+    data = cursor.fetchall()
+    cursor.close()
+    user = User.query.get(current_user.id)
+    if form.validate_on_submit():
+        chatext = form.chatext.data
+        new_text = Messages(num=NULL, chatroom_id=chatroom_id, user=user.username,text_message=chatext)
+        db.sessions.add(new_text)
+        db.sessions.commit()
+        cursor = conn.cursor()
+        query = "INSERT INTO messages(num, chatroom_id,user,text_message) VALUES (NULL,%s,%s,%s)"
+        cursor.execute(query)
+        conn.commit()
+    return render_template('group.html', form=form, messages=data, chatroom_id=chatroom_id)
 
 @app.route('/store', methods=['GET'])
 def store():

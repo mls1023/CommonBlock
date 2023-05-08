@@ -87,7 +87,22 @@ class Account(db.Model):
     first_name = db.Column(db.String(20), nullable=True)
     last_name = db.Column(db.String(20), nullable=True)
     age = db.Column(db.Integer, nullable=True)
-    
+
+class Chatrooms(db.Model):
+    __tablename__='chatrooms'
+    chatroom_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    user1 = db.Column(db.String(20), nullable=False)
+    user2 = db.Column(db.String(20), nullable=False)
+
+
+class Messages(db.Model):
+    __tablesname__='messages'
+    num = db.Column(db.Integer, primary_key=True, nullable=False)
+    chatroom_id = db.Column(db.Integer, nullable=False)
+    user = db.Column(db.String(20), nullable=False)
+    text_message = db.Column(db.String(150),nullable=False)
+
+
 
 class Group(db.Model):
     __tablename__ = 'groups'

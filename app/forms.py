@@ -27,6 +27,11 @@ class EditAccount(FlaskForm):
     age = IntegerField("Age",validators=[InputRequired()])
     submit = SubmitField('Edit Account')
 
+class ChatForm1(FlaskForm):
+    chatuser = SelectField('Users', choices=[], validators=[DataRequired()])
+class ChatForm2(FlaskForm):
+    chatext = TextAreaField("Text",validators=[InputRequired()])
+
 class ApartmentReviewForm(FlaskForm):
     rating = IntegerField('Rating', validators=[InputRequired(), NumberRange(min=1, max=5)])
     comment = TextAreaField('Comment')
