@@ -7,7 +7,8 @@ app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 
-app.config['UPLOAD_FOLDER'] = Config.UPLOAD_FOLDER
+with app.app_context():
+   db.create_all()
 
 login_manager = LoginManager()
 login_manager.init_app(app)

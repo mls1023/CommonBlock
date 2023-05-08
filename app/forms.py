@@ -35,18 +35,13 @@ class ApartmentReviewForm(FlaskForm):
     apartment_id = SelectField('Apartment', choices=[], coerce=int)
 
 class UserReviewForm(FlaskForm):
-    username = TextAreaField('Username', validators=[InputRequired()])
     rating = IntegerField('Rating', validators=[InputRequired(), NumberRange(min=1, max=5)])
     comment = TextAreaField('Comment')
+    username = TextAreaField('Username', validators=[InputRequired()])
 
-#not actrually using this but don't delete
 class StoreForm(FlaskForm):
-    condition = SelectField('Condition', choices=[('new', 'New'), ('used', 'Used')], validators=[DataRequired()])
-    description = TextAreaField('Description', validators=[DataRequired()])
+    description = TextAreaField('Description', validators=[DataRequired(), Length(min=2, max=100)])
+    condition = SelectField('Condition', choices=[('new', 'New'), ('like new', 'Like new'), ('good', 'Good'), ('fair', 'Fair'), ('poor', 'Poor')], validators=[DataRequired()])
     price = FloatField('Price', validators=[DataRequired()])
-    #image = FileField('Image', validators=[DataRequired()])
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=100)])
-    email = StringField('Email', validators=[DataRequired(), Length(min=2, max=100)])
-    furniture_name = StringField('furniture_name', validators=[DataRequired(), Length(min=2, max=100)])
-    submit = SubmitField('Post')    
+
     

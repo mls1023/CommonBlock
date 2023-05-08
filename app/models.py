@@ -16,6 +16,7 @@ membership = db.Table('membership',
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
+
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     username = db.Column(db.String(64), index=True, unique=True, nullable=False)
     email = db.Column(db.String(120), index=True, unique=True, nullable=False)
@@ -36,26 +37,19 @@ class Furniture(db.Model):
     __tablename__ = 'furniture'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
     condition = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Float, nullable=False)
-    image = db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    seller_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    #user = db.relationship('User', backref='furniture', lazy=True)
-    #^fix the above database, i think im using bakref and backpopulates incorrectly but it should work similar to reviews
-    #uncommenting the user line breaks the database structure so for now I wouldnt 
-
-    def save_image(self, image):
-        print('hi')
-        #edit this function to save an image
+    seller_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    seller = db.relationship('User', backref=db.backref('furniture', lazy=True))
 
     def __repr__(self):
-        return f"Furniture('{self.name}', '{self.condition}', '{self.price}')"
+        return f"Furniture('{self.description}', '{self.condition}', '{self.price}')"
 
 class Apartment(db.Model):
     __tablename__ = 'apartments'
+
     id = db.Column(db.Integer, primary_key=True)
     address = db.Column(db.String(120), nullable=False)
     rent = db.Column(db.Integer, nullable=False)
@@ -68,6 +62,7 @@ class Apartment(db.Model):
 
 class Review(db.Model):
     __tablename__ = 'reviews'
+
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     apartment_id = db.Column(db.Integer, db.ForeignKey('apartments.id'), nullable=False)
@@ -79,6 +74,7 @@ class Review(db.Model):
 
 class Group(db.Model):
     __tablename__ = 'groups'
+
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String(50), nullable=False)
     members = db.relationship('User', secondary=membership, back_populates='groups', lazy=True)

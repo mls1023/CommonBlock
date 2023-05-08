@@ -13,25 +13,23 @@
   <h2>Second Hand Furniture Store</h2>
   <table style="width:100%">
     <tr>
-      <th>ItemID</th>
-      <th>Username</th>
-      <th>Email</th>
+      <th>Description</th>
       <th>Condition</th>
       <th>Price ($)</th>
-      <th>Furniture</th>
-      <th>Description</th>
+      <th>Date Posted</th>
+      <th>Username</th>
+      <th>Email</th>
     </tr>
-    {% for line in result %}
-            <tr>
-                <td>{{line['item_id']}}</td>
-                <td>{{line['username']}}</td>
-                <td>{{line['email']}}</td>
-                <td>{{line['item_condition']}}</td>
-                <td>{{line['price']}}</td>
-                <td>{{line['furniture_name']}}</td>
-                <td>{{line['description']}}</td>
-            </tr>
-    {% endfor %}
+    {% for item in furniture %}
+      <tr>
+          <td>{{ item.description }}</td>
+          <td>{{ item.condition }}</td>
+          <td>{{ item.price }}</td>
+          <td>{{ item.date_posted }}</td>
+          <td>{{ item.seller.username }}</td>
+          <td>{{ item.seller.email }}</td>
+        </tr>
+      {% endfor %}
   </table>
   
 {% endblock %}

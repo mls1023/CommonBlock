@@ -6,15 +6,6 @@ from app.forms import ApartmentReviewForm, UserReviewForm, LoginForm, SignupForm
 from app.models import Furniture, User, Apartment, Review
 from geopy.distance import geodesic
 
-import pymysql.cursors
-conn = pymysql.connect(host='127.0.0.1',
-                       port=8889,
-                       user='root',
-                       password='root',
-                       db='CommonBlock',
-                       charset='utf8mb4',
-                       cursorclass=pymysql.cursors.DictCursor)
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -105,7 +96,7 @@ def user_review():
         comment = form.comment.data
         user = User.query.filter_by(username=username).first()
         if user:
-            review = Review(rating=rating,text=comment,user_id=user.id)
+            review = Review(rating=rating,comment=comment,user_id=username)
             db.session.add(review)
             db.session.commit()
             flash('Review has been submitted successfully.', 'success')
@@ -136,70 +127,19 @@ def join_group():
     return render_template('join_group.html')
 
 @app.route('/store', methods=['GET'])
+@login_required
 def store():
-    # Handle GET request to display items and search form
-    cursor = conn.cursor()
-    getall = 'SELECT * FROM furnitures'
-    cursor.execute(getall)
-    data = cursor.fetchall()
-    cursor.close()
-    return render_template('store.html', result = data)
+    furniture = Furniture.query.all()
+    return render_template('store.html',furniture=furniture )
 
 @app.route('/store/post', methods=['GET', 'POST'])
 @login_required
 def post_item():
-    # Handle GET and POST request to post a new item
     form = StoreForm()
     if form.validate_on_submit():
-        # picture_file = 0 #edit
-        # new_item = Furniture(picture=picture_file, condition=form.condition.data, description=form.description.data, price=form.price.data, seller=current_user)
-        
-        new_item = Furniture(username=form.username.data, email=form.email.data, item_condition=form.condition.data, price=form.price.data, furniture_name=form.furniture_name.data, description=form.description.data)
-        
+        new_item = Furniture(seller_id=current_user.id, condition=form.condition.data,
+         price=form.price.data, description=form.description.data)
         db.session.add(new_item)
         db.session.commit()
         flash('Your item has been posted!', 'success')
     return render_template('store_post.html',  form=form)
-
-
-    # #grabs information from the forms
-    # furnitureName = request.form['fname']
-    # Condition = request.form['condition']
-    # Description = request.form['description']
-    # Price = request.form['price']
-    # Username = request.form['username']
-    # Email = request.form['email']
-    # #cursor used to send queries and get item_id
-    # cursor = conn.cursor()
-    # getAll = 'SELECT * FROM furnitures'
-    # cursor.execute(getAll)
-    # data = cursor.fetchall()
-    # item_id = cursor.rowcount
-    # ins = 'INSERT INTO furnitures VALUES(%d, %s, %s, %s, %s, %s, %s)'
-    # cursor.execute(ins, (item_id, Username, Email, Condition, Price, furnitureName, Description))
-    # conn.commit()
-    # cursor.close()
-
-    #return render_template('store_post.html', methods=['GET', 'POST'])
-
-# @app.route('/itemAuth', methods=['GET', 'POST'])
-# @login_required
-# def itemAuth():
-#      #grabs information from the forms
-#     furnitureName = request.form['fname']
-#     Condition = request.form['condition']
-#     Description = request.form['description']
-#     Price = request.form['price']
-#     Username = request.form['username']
-#     Email = request.form['email']
-#     #cursor used to send queries and get item_id
-#     cursor = conn.cursor()
-#     getAll = 'SELECT * FROM furnitures'
-#     cursor.execute(getAll)
-#     data = cursor.fetchall()
-#     #item_id = cursor.rowcount
-#     ins = 'INSERT INTO furnitures VALUES(%d, %s, %s, %s, %s, %s, %s)'
-#     cursor.execute(ins, (4, Username, Email, Condition, Price, furnitureName, Description))
-#     conn.commit()
-#     cursor.close()
-#     return render_template('store.html', methods=['GET', 'POST'])
