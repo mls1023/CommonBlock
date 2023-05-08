@@ -24,10 +24,9 @@ CREATE TABLE chatrooms(
     chatroom_id INT PRIMARY KEY AUTO_INCREMENT,
     user1 VARCHAR(64) NOT NULL, 
     user2 VARCHAR(64) NOT NULL,
-    text_message VARCHAR(150)
 );
 CREATE TABLE messages(
-    num ID PRIMARY KEY AUTO_INCREMENT,
+    num INT PRIMARY KEY AUTO_INCREMENT,
     chatroom_id INT,
     user VARCHAR(64),
     text_message VARCHAR(150)
