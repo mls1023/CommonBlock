@@ -78,6 +78,17 @@ class Review(db.Model):
     user = db.relationship('User', backref='reviews')
     apartment = db.relationship('Apartment', backref='reviews')
 
+
+
+class Account(db.Model):
+    __tablename__='account'
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    first_name = db.Column(db.String(20), nullable=True)
+    last_name = db.Column(db.String(20), nullable=True)
+    age = db.Column(db.Integer, nullable=True)
+    
+
 class Group(db.Model):
     __tablename__ = 'groups'
     id = db.Column(db.Integer, primary_key=True, nullable=False)

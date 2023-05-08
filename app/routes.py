@@ -2,8 +2,8 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_required, login_user, logout_user, current_user   
 from sqlalchemy import func
 from app import app, db
-from app.forms import ReviewForm, LoginForm, SignupForm, SearchForm, EditAccount, StoreForm
-from app.models import User, Apartment, Review
+from app.forms import LoginForm, SignupForm, SearchForm, EditAccount, StoreForm
+from app.models import User, Apartment, Review, Account, Furniture
 from geopy.distance import geodesic
 
 import pymysql.cursors
@@ -14,15 +14,6 @@ conn = pymysql.connect(host='127.0.0.1',
                        charset='utf8mb4',
                        cursorclass=pymysql.cursors.DictCursor)
 
-
-import pymysql.cursors
-conn = pymysql.connect(host='127.0.0.1',
-                       port=8889,
-                       user='root',
-                       password='root',
-                       db='CommonBlock',
-                       charset='utf8mb4',
-                       cursorclass=pymysql.cursors.DictCursor)
 
 @app.route('/')
 def index():
