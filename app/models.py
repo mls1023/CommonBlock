@@ -66,6 +66,7 @@ class Apartment(db.Model):
     def __repr__(self):
         return '<Apartment Listing {}>'.format(self.address)
 
+
 class Review(db.Model):
     __tablename__ = 'reviews'
     id = db.Column(db.Integer, primary_key=True)
@@ -76,6 +77,32 @@ class Review(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     user = db.relationship('User', backref='reviews')
     apartment = db.relationship('Apartment', backref='reviews')
+
+
+
+class Account(db.Model):
+    __tablename__='account'
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    first_name = db.Column(db.String(20), nullable=True)
+    last_name = db.Column(db.String(20), nullable=True)
+    age = db.Column(db.Integer, nullable=True)
+
+class Chatrooms(db.Model):
+    __tablename__='chatrooms'
+    chatroom_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    user1 = db.Column(db.String(20), nullable=False)
+    user2 = db.Column(db.String(20), nullable=False)
+
+
+class Messages(db.Model):
+    __tablesname__='messages'
+    num = db.Column(db.Integer, primary_key=True, nullable=False)
+    chatroom_id = db.Column(db.Integer, nullable=False)
+    user = db.Column(db.String(20), nullable=False)
+    text_message = db.Column(db.String(150),nullable=False)
+
+
 
 class Group(db.Model):
     __tablename__ = 'groups'

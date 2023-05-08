@@ -6,7 +6,31 @@ CREATE TABLE users (
     id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(64) NOT NULL,
     email VARCHAR(120) NOT NULL,
-    password_hash VARCHAR(128) NOT NULL
+    password_hash VARCHAR(128) NOT NULL,
+    group_id INT(11)
+);
+
+CREATE TABLE account (
+    id INT,
+    user_id INT,
+    first_name VARCHAR(20),
+    last_name VARCHAR(20),
+    age INT(2),
+    PRIMARY KEY(id),
+    FOREIGN KEY(user_id) REFERENCES users(id)
+);
+
+CREATE TABLE chatrooms(
+    chatroom_id INT PRIMARY KEY AUTO_INCREMENT,
+    user1 VARCHAR(64) NOT NULL, 
+    user2 VARCHAR(64) NOT NULL,
+    text_message VARCHAR(150)
+);
+CREATE TABLE messages(
+    num ID PRIMARY KEY AUTO_INCREMENT,
+    chatroom_id INT,
+    user VARCHAR(64),
+    text_message VARCHAR(150)
 );
 
 
