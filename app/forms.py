@@ -47,9 +47,5 @@ class StoreForm(FlaskForm):
     condition = SelectField('Condition', choices=[('new', 'New'), ('used', 'Used')], validators=[DataRequired()])
     description = TextAreaField('Description', validators=[DataRequired()])
     price = FloatField('Price', validators=[DataRequired()])
-    #image = FileField('Image', validators=[DataRequired()])
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=100)])
-    email = StringField('Email', validators=[DataRequired(), Length(min=2, max=100)])
-    furniture_name = StringField('furniture_name', validators=[DataRequired(), Length(min=2, max=100)])
     submit = SubmitField('Post')    
     
