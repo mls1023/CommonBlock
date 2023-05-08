@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Store{% endblock %}
+
+{% block content %}
+  <head>
+  <style>
+  table, th, td {
+    border: 1px solid rgb(255, 255, 255);
+  }
+  </style>
+  </head>
+  <h2>Second Hand Furniture Store</h2>
+  <table style="width:100%">
+    <tr>
+      <th>ItemID</th>
+      <th>Username</th>
+      <th>Email</th>
+      <th>Condition</th>
+      <th>Price ($)</th>
+      <th>Furniture</th>
+      <th>Description</th>
+    </tr>
+    {% for line in result %}
+            <tr>
+                <td>{{line['item_id']}}</td>
+                <td>{{line['username']}}</td>
+                <td>{{line['email']}}</td>
+                <td>{{line['item_condition']}}</td>
+                <td>{{line['price']}}</td>
+                <td>{{line['furniture_name']}}</td>
+                <td>{{line['description']}}</td>
+            </tr>
+    {% endfor %}
+  </table>
+  
+{% endblock %}
