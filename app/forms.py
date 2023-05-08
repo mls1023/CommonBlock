@@ -21,13 +21,11 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Log In')
 
-class AccountInfoForm(FlaskForm):
-    first_name = StringField('First Name', valaidators=[Length(max=20)])
-    last_name = StringField('Last Name', valaidators=[Length(max=20)])
-    gender = SelectField('Gender', choices=[('Male'),('Female'),('Other')])
-    wake_up = SelectField('Wake Up Time', choices=[('6am'),('7am'),('8am'),('9am'),('10am'),('11am')])
-    bedtime = SelectField('Bed Time', choice=[('9pm'),('10pm'),('11pm'),('12am'),('1am'),('2am')])
-    edit_account = SubmitField('Edit Account')
+class EditAccount(FlaskForm):
+    first_name = StringField('First Name', validators=[Length(max=20)])
+    last_name = StringField('Last Name',validators=[Length(max=20)])
+    age = IntegerField("Age",validators=[InputRequired()])
+    submit = SubmitField('Edit Account')
 
 class ReviewForm(FlaskForm):
     review_type = SelectField('Review Type', choices=[('user', 'User'), ('apartment', 'Apartment')], validators=[InputRequired()])

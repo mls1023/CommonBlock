@@ -47,6 +47,15 @@ class Apartment(db.Model):
     def __repr__(self):
         return '<Apartment Listing {}>'.format(self.address)
 
+class Account(db.Model):
+    __tablename__ = 'account'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False) 
+    first_name = db.Column(db.String(20), nullable=True)
+    last_name = db.Column(db.String(20), nullable=True)
+    age = db.Column(db.Integer,nullable=True)
+
+
 
 class Review(db.Model):
     __tablename__ = 'reviews'

@@ -10,6 +10,16 @@ CREATE TABLE users (
     group_id INT(11)
 );
 
+CREATE TABLE account (
+    id INT,
+    user_id INT,
+    first_name VARCHAR(20),
+    last_name VARCHAR(20),
+    age INT(2),
+    PRIMARY KEY(id),
+    FOREIGN KEY(user_id) REFERENCES users(id)
+);
+
 
 CREATE TABLE apartments (
     id INT PRIMARY KEY AUTO_INCREMENT,
