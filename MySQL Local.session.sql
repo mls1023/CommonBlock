@@ -45,6 +45,7 @@ CREATE TABLE apartments (
 INSERT INTO users (username, email, password_hash)
 VALUES ('admin', 'admin@gmail.com', 'password1');
 
+
 INSERT INTO apartments(address, rent, num_bedrooms, lat, lng)
 VALUES
 ('45 Wall St New York NY 10005', 2200, 1, 40.7062, -74.0100),
@@ -70,7 +71,14 @@ VALUES
 ('70 Pine St New York NY 10270', 2800, 3, 40.7067, -74.0072),
 ('100 Maiden Ln New York NY 10038', 3100, 1, 40.7067, -74.0052),
 ('95 Wall St New York NY 10005', 2500, 2, 40.7052, -74.0083),
-('123 Washington St New York NY 10006', 3500, 3, 40.7094, -74.0132);
+('123 Washington St New York NY 10006', 3500, 3, 40.7094, -74.0132),
+()'151 Tompkins Ave Brooklyn NY 11206', 1400, 6 bd, 40.69414, -73.94581),
+('151 Tompkins Ave Brooklyn NY 11206', 1425, 6 bd, 40.69414, -73.94581),
+('151 Tompkins Ave Brooklyn NY 11206', 1675, 6 bd, 40.69414, -73.94581),
+('151 Tompkins Ave Brooklyn NY 11206', 1700, 6 bd, 40.69414, -73.94581),
+('151 Tompkins Ave Brooklyn NY 11206', 1725, 6 bd, 40.69414, -73.94581),
+('15 W 107th St New York NY 10025', 1400, 5 bd, 40.79929, -73.9603),
+('15 W 107th St New York NY 10025', 1400, 5 bd, 40.79929, -73.9603);
 
 CREATE TABLE Reviews (
     id INT NOT NULL AUTO_INCREMENT,
