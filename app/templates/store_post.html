@@ -3,12 +3,18 @@
 {% block title %}Store{% endblock %}
 
 {% block content %}
+<head>
   <h2>Post an item for sale</h2>
-  <form action="{{ url_for('post_item') }}" method="POST" enctype="multipart/form-data">
+</head>
+<body>
+
+
+  <!-- <form action="/itemAuth" method="POST"></form> -->
+ <form action="{{ url_for('post_item') }}" method="POST" enctype="multipart/form-data"> 
     <!-- <label for="picture">Picture:</label> -->
     <!-- <input type="file" name="picture" id="picture"><br><br> -->
     <lable for="furniture_name">Furniture Name:</label><br>
-    <textarea name="furniture_name" id="furniture_name" rows="1" cols="20"></textarea><br><br>
+    <textarea name="fname" id="fname" rows="1" cols="20"></textarea><br><br>
   
     <label for="condition">Condition:</label>
     <select name="condition" id="condition">
@@ -31,6 +37,11 @@
     <lable for="email">Email:</label><br>
     <textarea name="email" id="email" rows="1" cols="20"></textarea><br><br>
 
-    <input type="submit" value="Post item">
+    <!-- <input type="submit" value="Post item"> -->
+    <input type="submit" value = "Post" />
+    {% if error %}
+            <p class="error"><strong>Error:</strong> {{error}}</p>
+    {% endif %}
   </form>
+</body>
 {% endblock %}

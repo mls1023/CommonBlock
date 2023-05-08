@@ -160,3 +160,46 @@ def post_item():
         db.session.commit()
         flash('Your item has been posted!', 'success')
     return render_template('store_post.html',  form=form)
+
+
+    # #grabs information from the forms
+    # furnitureName = request.form['fname']
+    # Condition = request.form['condition']
+    # Description = request.form['description']
+    # Price = request.form['price']
+    # Username = request.form['username']
+    # Email = request.form['email']
+    # #cursor used to send queries and get item_id
+    # cursor = conn.cursor()
+    # getAll = 'SELECT * FROM furnitures'
+    # cursor.execute(getAll)
+    # data = cursor.fetchall()
+    # item_id = cursor.rowcount
+    # ins = 'INSERT INTO furnitures VALUES(%d, %s, %s, %s, %s, %s, %s)'
+    # cursor.execute(ins, (item_id, Username, Email, Condition, Price, furnitureName, Description))
+    # conn.commit()
+    # cursor.close()
+
+    #return render_template('store_post.html', methods=['GET', 'POST'])
+
+# @app.route('/itemAuth', methods=['GET', 'POST'])
+# @login_required
+# def itemAuth():
+#      #grabs information from the forms
+#     furnitureName = request.form['fname']
+#     Condition = request.form['condition']
+#     Description = request.form['description']
+#     Price = request.form['price']
+#     Username = request.form['username']
+#     Email = request.form['email']
+#     #cursor used to send queries and get item_id
+#     cursor = conn.cursor()
+#     getAll = 'SELECT * FROM furnitures'
+#     cursor.execute(getAll)
+#     data = cursor.fetchall()
+#     #item_id = cursor.rowcount
+#     ins = 'INSERT INTO furnitures VALUES(%d, %s, %s, %s, %s, %s, %s)'
+#     cursor.execute(ins, (4, Username, Email, Condition, Price, furnitureName, Description))
+#     conn.commit()
+#     cursor.close()
+#     return render_template('store.html', methods=['GET', 'POST'])
