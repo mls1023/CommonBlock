@@ -194,5 +194,5 @@ def post_item():
         db.session.add(new_item)
         db.session.commit()
         flash('Your item has been posted!', 'success')
-        return redirect(url_for('/'))
+        return redirect(url_for('index'))
     return render_template('store_post.html',  form=form)
