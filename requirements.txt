@@ -1,6 +1,7 @@
-Flask
-MySQL
-email_validator
+Python == 3.9.7
+Flask == 2.2.3
+Werkzeug == 2.2.3
+mysql == 8.0.32
 Flask-Migrate 
 Flask-Script
 leaflet

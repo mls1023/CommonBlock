@@ -1,3 +1,4 @@
+from email.message import Message
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_required, login_user, logout_user, current_user
 from pymysql import NULL   
@@ -7,14 +8,6 @@ from app.forms import LoginForm, SignupForm, SearchForm, EditAccount, StoreForm,
 from app.models import User, Apartment, Review, Account, Furniture, Chatrooms, Messages
 from geopy.distance import geodesic
 
-import pymysql.cursors
-conn = pymysql.connect(host='127.0.0.1',
-                       port=3306,
-                       user='root',
-                       db='CommonBlock',
-                       charset='utf8mb4',
-                       cursorclass=pymysql.cursors.DictCursor)
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -22,7 +15,6 @@ def index():
 @app.route('/about')
 def about():
     return render_template('about.html')
-
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -53,7 +45,8 @@ def login():
         if user is not None and user.check_password(password):
             login_user(user)
             return redirect(url_for('index'))
-        flash('Invalid email or password')
+        else:
+            flash('Invalid email or password')
     return render_template('login.html', form=form)
 
 @app.route('/logout')
@@ -86,7 +79,7 @@ def search_results():
     listings = Apartment.query.filter(Apartment.rent >= min_rent, Apartment.rent <= max_rent,
     Apartment.num_bedrooms == num_bedrooms).all()
     filtered_listings = [listing for listing in listings if
-        geodesic((lat,lng), (listing.lat, listing.lng)).miles <= 1]
+        geodesic((lat,lng), (listing.lat, listing.lng)).miles <= 2]
     reviews = []
     for listing in filtered_listings:
         avg_rating = db.session.query(func.avg(Review.rating)).filter_by(apartment_id=listing.id).scalar()
@@ -99,7 +92,8 @@ def search_results():
 def edit_account():
     form = EditAccount()
     if form.validate_on_submit():
-        new_info = Account(id=current_user.id, user_id=current_user.id, first_name=form.first_name.data, last_name=form.last_name.data,age= form.age.data)
+        new_info = Account(id=current_user.id, user_id=current_user.id, first_name=form.first_name.data,
+         last_name=form.last_name.data,age= form.age.data)
         current_account = Account.query.get(current_user.id)
         db.session.delete(current_account)
         db.session.add(new_info)
@@ -120,27 +114,30 @@ def user_review():
             db.session.add(review)
             db.session.commit()
             flash('Review has been submitted successfully.', 'success')
-            return redirect(url_for('home'))
+            return redirect(url_for('index'))
         else:
             flash('User with the given username does not exist.', 'danger')
     return render_template('user_review.html', form=form)
     
 @app.route('/review/apartment', methods=['GET', 'POST'])
+@login_required
 def apartment_review():
     form = ApartmentReviewForm()
-    form.apartment_id.choices = [(a.id, a.address) for a in Apartment.query.all()]
+    form.apartment_id.choices = [(apartment.id, apartment.address) for apartment in Apartment.query.all()]
     if form.validate_on_submit():
-        review = Review(rating=form.rating.data, comment=form.comment.data)
-        apartment = Apartment.query.get(form.apartment_id.data)
-        apartment.reviews.append(review)
-        db.session.add(apartment)
-        db.session.commit()
-        flash('Thank you for your review!')
-        return redirect(url_for('index'))
-    else:
-        flash('Incorrect input.', 'danger')
+        apartment_id = form.apartment_id.data
+        rating = form.rating.data
+        comment = form.comment.data
+        apartment = Apartment.query.get(apartment_id)
+        if apartment:
+            review = Review(rating=rating, comment=comment, user_id=current_user.id, apartment_id=apartment_id)
+            db.session.add(review)
+            db.session.commit()
+            flash('Review has been submitted successfully.', 'success')
+            return redirect(url_for('index'))
+        else:
+            flash('Apartment with the given ID does not exist.', 'danger')
     return render_template('apartment_review.html', form=form)
-
 
 @app.route('/join_group', methods=['GET', 'POST'])
 @login_required
@@ -164,16 +161,6 @@ def join_group():
             if num2 > 0:
                 chatroom = Chatrooms.query.filter_by(user2=chatuser,user1=user.username).first()
                 chatroom_id = chatroom.chatroom_id
-        # cursor = conn.cursor()
-        # query = "SELECT chatroom_id FROM chatrooms WHERE (user1=%s AND user2=%s) OR (user1=%s AND user2=%s);"
-        # cursor.execute(query,(chatuser,user.username,user.username,chatuser))
-        # chatroom = cursor.fetchone()
-        # cursor.close()
-        #cursor = conn.cursor()
-        #query = "SELECT * FROM messages WHERE (chatroom_id=%s);"
-        #cursor.execute(query, chatroom_id)
-        #data = cursor.fetchall()
-        #cursor.close()
         return redirect(url_for('group', chatroom_id=chatroom_id))
     return render_template('join_group.html', form=form)
 
@@ -182,21 +169,13 @@ def join_group():
 def group():
     form = ChatForm2()
     chatroom_id = request.args.get('chatroom_id', type=int)
-    cursor = conn.cursor()
-    query = "SELECT * FROM messages WHERE (chatroom_id=%s);"
-    cursor.execute(query, chatroom_id)
-    data = cursor.fetchall()
-    cursor.close()
+    data = Messages.query.filter(Messages.chatroom_id == chatroom_id).all()
     user = User.query.get(current_user.id)
     if form.validate_on_submit():
         chatext = form.chatext.data
         new_text = Messages(num=NULL, chatroom_id=chatroom_id, user=user.username,text_message=chatext)
         db.sessions.add(new_text)
         db.sessions.commit()
-        cursor = conn.cursor()
-        query = "INSERT INTO messages(num, chatroom_id,user,text_message) VALUES (NULL,%s,%s,%s)"
-        cursor.execute(query)
-        conn.commit()
     return render_template('group.html', form=form, messages=data, chatroom_id=chatroom_id)
 
 @app.route('/store', methods=['GET'])
@@ -215,4 +194,5 @@ def post_item():
         db.session.add(new_item)
         db.session.commit()
         flash('Your item has been posted!', 'success')
+        return redirect(url_for('/'))
     return render_template('store_post.html',  form=form)

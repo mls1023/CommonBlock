@@ -10,7 +10,13 @@
       {% for review in reviews %}
         <li>
           <h3>{{ review.listing.address }}</h3>
-          <p>${{ review.listing.rent }}/month - {{ review.listing.num_bedrooms }} bedrooms</p>
+          <p>${{ review.listing.rent }}/month - 
+            {% if review.listing.num_bedrooms == 0 %}
+                Studio
+            {% else %}
+                {{ review.listing.num_bedrooms }} bedrooms
+            {% endif %}
+        </p>
           <p>Average Rating: {% if review.avg_rating %}{{ '%0.1f' % review.avg_rating }}{% else %}N/A{% endif %}</p>
           <p>Random Reviews:</p>
           <ul>
